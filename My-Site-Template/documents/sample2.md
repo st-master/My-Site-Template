@@ -2,12 +2,14 @@
 type: card
 title: 対話ログカード
 date: 2026.0915.02
-category: Fortune
+category: Technology
 tags:
 - AI
-- Technology
-- 
+- GitBash
+- Python
 ---
+
+
 ---
 Q1: 
 結論から申し上げますと、**完全に自動化（コード化）可能**です。

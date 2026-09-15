@@ -1,0 +1,8 @@
+# temporaries フォルダ全体を除外
+temporaries/
+
+# videos フォルダ内の mp4 ファイルをすべて除外
+videos/*.mp4
+
+# 特定の巨大ファイルを除外
+videos/news.oldies.mp4

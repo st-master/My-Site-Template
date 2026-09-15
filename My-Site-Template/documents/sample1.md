@@ -5,9 +5,11 @@ date: 2026.0915.01
 category: Fortune
 tags:
 - AI
-- Technology
-- 
+- GitHub
+- Python
 ---
+
+
 ---
 Q1: 
 build.pyの役割を解説する

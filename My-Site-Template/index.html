@@ -1,77 +1,62 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Site - ポータル</title>
-  <link rel="stylesheet" href="./assets/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Site - Documents</title>
+    <link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
-  <header>
-    <h1>マイポータルログ</h1>
-    <nav>
-      <a href="logs.html">制作ログ</a>
-      <a href="documents/">文書 (Documents)</a>
-      <a href="images/">画像 (Images)</a>
-      <a href="videos/">動画 (Videos)</a>
-      <a href="audios/">音声 (Audios)</a>
-    </nav>
-  </header>
+    <header>
+        <h1>対話ログ・ドキュメント一覧</h1>
+    </header>
 
-  <main style="text-align: center; margin-top: 50px;">
-    <h2>最近の目玉（Topic-Vision）</h2>
-  </main>
+    <main class="card-container">
+        
+        <article class="card">
+            <a href="./viewer.html?file=sample2.md">
+                <div class="card-header">
+                    <span class="card-category">Technology</span>
+                    <span class="card-date">2026.0915.02</span>
+                </div>
+                <h2 class="card-title">対話ログカード</h2>
+                
+                <div class="card-tags">
+                    
+                    <span class="tag">#AI</span>
+                    
+                    <span class="tag">#GitBash</span>
+                    
+                    <span class="tag">#Python</span>
+                    
+                </div>
+                
+            </a>
+        </article>
+        
+        <article class="card">
+            <a href="./viewer.html?file=sample1.md">
+                <div class="card-header">
+                    <span class="card-category">Fortune</span>
+                    <span class="card-date">2026.0915.01</span>
+                </div>
+                <h2 class="card-title">対話ログカード</h2>
+                
+                <div class="card-tags">
+                    
+                    <span class="tag">#AI</span>
+                    
+                    <span class="tag">#GitHub</span>
+                    
+                    <span class="tag">#Python</span>
+                    
+                </div>
+                
+            </a>
+        </article>
+        
+    </main>
 
-  <div style="display: flex; justify-content: center; align-items: center; width: 100%; margin: 20px 0;">
-    <!-- playsinline と muted を指定することでスマホ等の自動再生制限を回避します -->
-    <video id="temp-video" controls width="640" autoplay loop muted playsinline controls style="max-width: 100%;">
-      <source src="./temporaries/news.mp4" type="video/mp4">
-      お使いのブラウザは動画タグに対応していません…
-    </video>
-  </div>
-  <div style="display: flex; justify-content: center; align-items: center; width: 100%; margin: 20px 0;">
-    <!-- playsinline と muted を指定することでスマホ等の自動再生制限を回避します -->
-    <video id="temp-video" controls width="640" autoplay playsinline style="max-width: 100%;">
-      <source src="./temporaries/news.oldies.mp4" type="video/mp4">
-      お使いのブラウザは動画タグに対応していません…
-    </video>
-  </div>
-  <div style="display: flex; justify-content: center; align-items: center; width: 100%; margin: 20px 0;">
-    <!-- playsinline と muted を指定することでスマホ等の自動再生制限を回避します -->
-    <video id="temp-video" controls width="640" autoplay playsinline style="max-width: 100%;">
-      <source src="./temporaries/news.old.mp4" type="video/mp4">
-      お使いのブラウザは動画タグに対応していません…
-    </video>
-  </div>
-  
-  <script>
-    async function loadFirstVideo() {
-      const folderPath = './temporaries/';
-      try {
-        const response = await fetch(folderPath);
-        const text = await response.text();
-        
-        // HTML文字列からリンクを取得して動画ファイルを抽出
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(text, 'text/html');
-        const links = Array.from(doc.querySelectorAll('a'));
-        
-        // 対応する拡張子のファイルを検出
-        const videoLink = links.find(link => 
-          /\.(mp4|webm|ogg)$/i.test(link.getAttribute('href'))
-        );
-  
-        if (videoLink) {
-          const videoElement = document.getElementById('temp-video');
-          const videoUrl = new URL(videoLink.getAttribute('href'), new URL(folderPath, window.location.href)).href;
-          videoElement.src = videoUrl;
-        }
-      } catch (error) {
-        console.error('動画の読み込みに失敗しました:', error);
-      }
-    }
-  
-    loadFirstVideo();
-  </script>
+    <script src="./assets/script.js"></script>
 </body>
 </html>
