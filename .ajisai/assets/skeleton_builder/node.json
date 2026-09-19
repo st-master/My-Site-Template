@@ -1,0 +1,10 @@
+{
+  "id": "skeleton_builder",
+  "title": "Skeleton_builder ギャラリー",
+  "icon": "📁",
+  "children": [],
+  "assets": [
+    "style.css",
+    "script.js"
+  ]
+}
