@@ -5,6 +5,7 @@
   "children": [],
   "assets": [
     "style.css",
+    "structure.yaml",
     "script.js"
   ]
 }

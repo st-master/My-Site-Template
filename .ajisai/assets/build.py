@@ -18,7 +18,7 @@ def update_node_manifest(node_dir: Path) -> dict:
             children.append(entry.name)
         elif entry.is_file():
             # システム制御用ファイルはアセットから除外
-            if entry.name not in ['node.json', 'index.html', 'build.py', 'template.html', 'structure.yaml']:
+            if entry.name not in ['node.json', 'index.html', 'build.py', 'template.html']:
                 assets.append(entry.name)
 
     node_json_path = node_dir / "node.json"
