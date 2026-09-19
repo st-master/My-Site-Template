@@ -3,67 +3,52 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Assets ギャラリー - マイポータル</title>
-  <link rel="stylesheet" href="{{THEME_CSS}}">
+  <title>資産ポータル</title>
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-  <!-- 共通ヘッダー・ポータルナビゲーション -->
-  <header class="portal-header">
-    <h1 class="portal-title">マイポータルログ</h1>
-    
-    <!-- NAV-BUILD-START -->
-    <!-- python build.py によってポータブルなナビゲーションが自動挿入されます -->
-    <!-- NAV-BUILD-END -->
+  <header>
+    <h1>📁 資産ポータル</h1>
   </header>
 
-  <!-- メインコンテンツ領域 -->
-  <main class="portal-main">
-    <!-- 各セクションのメインタイトル（例: 🖼️ 画像ギャラリー） -->
-    <section class="section-title-area">
-      <h2 class="section-heading">📁 Assets ギャラリー</h2>
-    </section>
-
-    <!-- ギャラリーカードグリッド（降順ソートされたメディアが並びます） -->
-    <!-- GALLERY-START -->
-<div class="gallery-grid">
-
-<article class="media-card portal-card">
-  <div class="card-body">
-    <h3>📁 Audios ギャラリー</h3>
+  <main>
+    <div class="gallery-grid">
+      
+<article class="gallery-card portal-card">
+  <div class="card-info">
+    <h3 class="card-title">🎵 音声ポータル</h3>
     <a href="./audios/" class="portal-btn">ノードを開く →</a>
   </div>
 </article>
-<article class="media-card portal-card">
-  <div class="card-body">
-    <h3>📁 Documents ギャラリー</h3>
+<article class="gallery-card portal-card">
+  <div class="card-info">
+    <h3 class="card-title">📄 文書ポータル</h3>
     <a href="./documents/" class="portal-btn">ノードを開く →</a>
   </div>
 </article>
-<article class="media-card portal-card">
-  <div class="card-body">
-    <h3>📁 Images ギャラリー</h3>
+<article class="gallery-card portal-card">
+  <div class="card-info">
+    <h3 class="card-title">🖼️ 画像ポータル</h3>
     <a href="./images/" class="portal-btn">ノードを開く →</a>
   </div>
 </article>
-<article class="media-card portal-card">
-  <div class="card-body">
-    <h3>📁 Skeleton_builder ギャラリー</h3>
+<article class="gallery-card portal-card">
+  <div class="card-info">
+    <h3 class="card-title">🏗️ スケルトンポータル</h3>
     <a href="./skeleton_builder/" class="portal-btn">ノードを開く →</a>
   </div>
 </article>
-<article class="media-card portal-card">
-  <div class="card-body">
-    <h3>📁 Videos ギャラリー</h3>
+<article class="gallery-card portal-card">
+  <div class="card-info">
+    <h3 class="card-title">🎬 動画ポータル</h3>
     <a href="./videos/" class="portal-btn">ノードを開く →</a>
   </div>
 </article>
-</div>
-<!-- GALLERY-END -->
+    </div>
   </main>
 
-  <!-- 共通フッター -->
-  <footer class="portal-footer">
-    <p>&copy; 2026 マイポータルログ - Assets Manager</p>
+  <footer>
+    <p>© 2026 マイポータルログ - Assets Manager</p>
   </footer>
 </body>
 </html>
