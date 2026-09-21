@@ -1,0 +1,22 @@
+# OrientedPhilosophia Relation Definition
+name: My-Site-Instance
+version: 1.0.0
+model: OrientedPhilosophiaModel
+
+# 1. 継承・依存関係 (Beans)
+# リモート(Git)やローカルパスからの構成要素を指定
+extends:
+  structure: "https://github.com/st-master/Structure-Base.git" # 骨格
+  design: "https://github.com/st-master/Design-Theme.git"       # スタイル
+  template: "https://github.com/ryubostyle/Template.git"        # テンプレート
+
+# 2. ディレクトリ構造のローカルオーバーライド設定
+components:
+  content_dir: "./documents"
+  assets_dir: "./assets"
+  output_dir: "./dist"
+
+# 3. 映写機（build.py）用ビルドフラグ
+projector:
+  entry_point: "index.html"
+  clean_output: true
