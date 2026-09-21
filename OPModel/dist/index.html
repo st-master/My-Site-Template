@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My-Site-Instance</title>
+    <style>
+
+        :root {
+            --op-bg-color: #0f172a;
+            --op-text-color: #f8fafc;
+            --op-text-muted: #94a3b8;
+            --op-card-bg: #1e293b;
+            --op-border-color: #334155;
+            --op-accent-color: #38bdf8;
+        }
+        
+/* 全体スタイル */
+body {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+  margin: 0;
+  padding: 20px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* ナビゲーションメニュー */
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #0366d6;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 6px;
+  background-color: #fff;
+  border: 1px solid #e1e4e8;
+  transition: all 0.2s ease;
+}
+
+nav a:hover {
+  background-color: #0366d6;
+  color: #fff;
+}
+
+/* ギャラリーのグリッド配置 */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* カード型アイテム */
+.gallery-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+}
+
+.gallery-card img, 
+.gallery-card video {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  background-color: #000;
+}
+
+.gallery-card audio {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.card-info {
+  padding: 15px;
+}
+
+.card-title {
+  font-size: 0.9rem;
+  font-weight: bold;
+  word-break: break-all;
+  color: #444;
+}
+
+/* Q. と A: を含むテキストブロックの改行・間隔コントロール */
+.card-content, .log-card-body {
+    /* \n (改行コード) をそのままブラウザ上で改行として表示させる */
+    white-space: pre-wrap; 
+}
+
+/* もし Q と A がそれぞれ独立した要素（pタグやh3タグ等）になっている場合の余白調整 */
+.card-content p {
+    margin-bottom: 1em;
+    line-height: 1.6;
+}
+
+/* ===================================================
+   音声ポータル・ギャラリー用スタイル
+   =================================================== */
+
+/* グリッド配置（画面幅に合わせて自動折り返し） */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  padding: 16px 0;
+}
+
+/* 音声カードのスタイル（gallery-card にも適用できるように追加） */
+.media-card, .audio-card, .gallery-card {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ホバー時に軽く浮き上がる効果 */
+.media-card:hover, .gallery-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 音声プレイヤーをカード幅にフィットさせる */
+.media-card audio, .gallery-card audio {
+  width: 100%;
+  border-radius: 20px;
+}
+
+/* ファイル名・タイトルの装飾（card-title にも適用できるように追加） */
+.audio-title, .card-title {
+  font-weight: bold;
+  font-size: 0.95rem;
+  color: #333333;
+  word-break: break-all;
+  margin: 0;
+}
+
+/* ===================================================
+   OPModel ドキュメント用スタイル割り当て
+   =================================================== */
+
+/* メインコンテナの幅調整 */
+main.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+/* マイポータルログのカードスタイルを .op-document に適用 */
+article.op-document {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* カードのホバーエフェクト */
+article.op-document:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* ドキュメントタイトル・ヘッダー */
+.document-title {
+  color: #333333;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.document-meta {
+  color: #666666;
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+}
+
+.document-category {
+  background-color: #e1e4e8;
+  color: #0366d6;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+/* 本文内のコードブロックや見出しの装飾 */
+.document-body h1, 
+.document-body h2, 
+.document-body h3 {
+  color: #0366d6;
+  border-bottom: 1px solid #e1e4e8;
+  padding-bottom: 6px;
+  margin-top: 24px;
+}
+
+.document-body pre {
+  background-color: #f6f8fa;
+  border: 1px solid #e1e4e8;
+  border-radius: 8px;
+  padding: 16px;
+  overflow-x: auto;
+}
+
+.document-body code {
+  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+}
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <h1>My-Site-Instance</h1>
+    </header>
+    
+    <main class="container">
+<article class="op-document">
+  <header class="document-header">
+    <h1 class="document-title">OPModelの設計思想とコンポーネント指向アーキテクチャ</h1>
+    <div class="document-meta">
+      <span class="document-date">2026.0921.02</span>
+      <span class="document-category">Architecture</span>
+    </div>
+  </header>
+  <section class="document-body">
+<h1>OPModel（Oriented Philosophia Model）設計仕様書</h1>
+<p>本ドキュメントは、OPModel における「2次元の型・役割（プロセッサ）」と「3次元の実体（データ・フィルム）」の完全分離、およびパイプライン投影（ビルド）構造の設計と実装内容をまとめたものです。</p>
+<p>---</p>
+<h2>1. コア概念・哲学</h2>
+<h3>① 2次元世界（型・役割・プロセッサ）</h3>
+<ul>
+<li><strong>特徴</strong>: ディレクトリ名の頭文字を<strong>大文字</strong>で定義。</li>
+<li><strong>性質</strong>: クラス・設計図・変換ロジックであり、空間や容量を持たない純粋な「役割・ベクトル」。</li>
+<li><strong>構成要素</strong>:</li>
+<li><code>Structure/</code>: 物理構造のスキャン & セマンティックな HTML 骨格 (<code><article></code>) 化</li>
+<li><code>Parser/</code>: Front Matter (YAML) / 本文 (Markdown) の安全な解析 & メディア同期</li>
+<li><code>Template/</code>: HTML 全体フレームワークへの画面合成 & 投影書き出し</li>
+<li><code>OPModel/</code>: パイプラインを繋ぐ指揮者 (<code>build.py</code>)</li>
+</ul>
+<h3>② 3次元世界（実体・フィルム / Components）</h3>
+<ul>
+<li><strong>特徴</strong>: ディレクトリ名を<strong>小文字</strong>で定義。</li>
+<li><strong>性質</strong>: 実際にファイルとして容量を占有する具体物（インスタンス/データ）。</li>
+<li><strong>構成要素</strong>:</li>
+<li><code>documents/</code>: 記述されたドキュメント実体 (<code>.md</code>)</li>
+<li><code>images/</code>: 画像アセット (<code>.png</code>, <code>.jpg</code> など)</li>
+<li><code>audios/</code>: 音声アセット (<code>.mp3</code> など)</li>
+<li><code>videos/</code>: 動画アセット (<code>.mp4</code> など)</li>
+<li><code>dist/</code>: 最終的にスクリーンへ投影された生成物 (<code>.html</code> / アセット群)</li>
+</ul>
+<h3>③ 空点 <code>.</code> と 媒介 (Context)</h3>
+<ul>
+<li>フォルダ名（<code>OPModel</code> 等）自体は相対的な原点・空点（<code>.</code>）に過ぎません。</li>
+<li><code>relation.yaml</code> は、その空点（<code>.</code>）がどの 2次元 Bean を使って 3次元の実体素材をどう結びつけるかを定義する<strong>局所的な状態記述子 (Context)</strong> です。</li>
+</ul>
+<p>---</p>
+<h2>2. 全体ディレクトリ構造</h2>
+<pre><code>. (空点 / 原点)
+│
+├── [2次元世界：型・役割・プロセッサ] (頭文字大文字 / Bean)
+│   ├── Structure/          # 構造スキャン & HTML骨格化
+│   │   ├── __init__.py
+│   │   └── structure_handler.py
+│   ├── Parser/             # Markdown/Front Matter 解析 & メディア同期
+│   │   ├── __init__.py
+│   │   ├── markdown_parser.py
+│   │   └── media_parser.py
+│   ├── Template/           # レスポンシブ画面合成 & HTML出力
+│   │   ├── __init__.py
+│   │   └── template_handler.py
+│   └── OPModel/            # パイプラインを統括する指揮者
+│       ├── build.py
+│       └── relation.yaml   # 状態定義媒介 (Context)
+│
+└── [3次元世界：実体・フィルム] (小文字 components)
+    ├── documents/          # 記事実体 (.md)
+    ├── images/             # 画像実体
+    ├── audios/             # 音声実体
+    ├── videos/             # 動画実体
+    └── dist/               # 投影スクリーン (HTML/Assets)
+<p>---<br>[ 3次元の実体 (documents / assets) ]<br>                │<br>                ▼<br>1. Structure/ : 物理フォルダ構造のスキャン ──> relation.yaml の状態同期<br>                │<br>                ▼<br>2. Parser/    : Front Matter (YAML) と本文 (Markdown) の安全な分離抽出<br>                │<br>                ▼<br>3. Structure/ : Markdown本文を HTML化し、<article> 骨格構造を構築<br>                │<br>                ▼<br>4. Parser/    : 各メディア素材 (images, audios, videos) を dist/ へ転送<br>                │<br>                ▼<br>5. Template/  : <article> 骨格群を index.html フレームに合成し、dist/index.html へ投影</p>
+<p>---<br>4. コード実装アーカイブ<br>① Structure/structure_handler.py</p>
+<p></code></pre>code</p>
+<p>import re<br>from pathlib import Path</p>
+<p>class StructureHandler:<br>    """カレントの空点 '.' における構造解析および HTML 骨格変換を担当する2次元 Bean"""</p>
+<p>def scan_context(self, base_dir="."):<br>        base_path = Path(base_dir)<br>        ignore_dirs = {<br>            ".git", ".vscode", "__pycache__", "dist",<br>            "Parser", "Design", "Structure", "Template", "OPModel"<br>        }<br>        <br>        detected_dirs = [<br>            d.name for d in base_path.iterdir() <br>            if d.is_dir() and d.name not in ignore_dirs<br>        ]</p>
+<p>target_map = {<br>            "documents": ("content_dir", "./documents"),<br>            "assets": ("assets_dir", "./assets"),<br>            "images": ("images_dir", "./images"),<br>            "audios": ("audios_dir", "./audios"),<br>            "videos": ("videos_dir", "./videos")<br>        }</p>
+<p>components = {}<br>        for dir_name, (config_key, path_val) in target_map.items():<br>            if dir_name in detected_dirs:<br>                components[config_key] = path_val</p>
+<p>components["output_dir"] = "./dist"<br>        return components</p>
+<p>def markdown_to_html(self, md_text):<br>        html = md_text<br>        html = re.sub(r'<pre><code>        html = re.sub(r'^#### (.*?)$', r'<h4>\1</h4>', html, flags=re.MULTILINE)<br>        html = re.sub(r'^### (.*?)$', r'<h3>\1</h3>', html, flags=re.MULTILINE)<br>        html = re.sub(r'^## (.*?)$', r'<h2>\1</h2>', html, flags=re.MULTILINE)<br>        html = re.sub(r'^# (.*?)$', r'<h1>\1</h1>', html, flags=re.MULTILINE)<br>        html = re.sub(r'\<em>\</em>(.<em>?)\</em>\*', r'<strong>\1</strong>', html)<br>        html = re.sub(r'\<em>(.</em>?)\*', r'<em>\1</em>', html)<br>        html = re.sub(r'<code>(.*?)</code>', r'<code>\1</code>', html)</p>
+<p>lines = html.split('\n')<br>        in_list = False<br>        new_lines = []<br>        for line in lines:<br>            if re.match(r'^\s<em>[\-\</em>]\s+(.*)$', line):<br>                item = re.sub(r'^\s<em>[\-\</em>]\s+(.*)$', r'<li>\1</li>', line)<br>                if not in_list:<br>                    new_lines.append('<ul>')<br>                    in_list = True<br>                new_lines.append(item)<br>            else:<br>                if in_list:<br>                    new_lines.append('</ul>')<br>                    in_list = False<br>                new_lines.append(line)<br>        if in_list:<br>            new_lines.append('</ul>')<br>        html = '\n'.join(new_lines)</p>
+<p>paragraphs = html.split('\n\n')<br>        processed_p = []<br>        for p in paragraphs:<br>            p_strip = p.strip()<br>            if not p_strip:<br>                continue<br>            if re.match(r'^<(h[1-6]|ul|ol|li|pre|blockquote|article|section)', p_strip):<br>                processed_p.append(p_strip)<br>            else:<br>                processed_p.append(f'<p>{p_strip.replace("\n", "<br>")}</p>')</p>
+<p>return '\n'.join(processed_p)</p>
+<p>def build_document_structure(self, metadata, body_text):<br>        raw_html_body = self.markdown_to_html(body_text)<br>        title = metadata.get("title", "Untitled")<br>        date = metadata.get("date", "")<br>        category = metadata.get("category", "")</p>
+<p>structured_html = f"""<article class="op-document"><br>  <header class="document-header"><br>    <h1 class="document-title">{title}</h1><br>    <div class="document-meta"><br>      {f'<span class="document-date">{date}</span>' if date else ''}<br>      {f'<span class="document-category">{category}</span>' if category else ''}<br>    </div><br>  </header><br>  <section class="document-body"><br>{raw_html_body}<br>  </section><br></article>"""</p>
+<p>return {<br>            "title": title,<br>            "date": date,<br>            "category": category,<br>            "structured_html": structured_html<br>        }<br>        </code></pre></p>
+<p>---</p>
+  </section>
+</article>
+<article class="op-document">
+  <header class="document-header">
+    <h1 class="document-title">OPModelの設計思想とコンポーネント指向アーキテクチャ</h1>
+    <div class="document-meta">
+      <span class="document-date">2026.0921.02</span>
+      <span class="document-category">Architecture</span>
+    </div>
+  </header>
+  <section class="document-body">
+<p>ここまでの対話と設計思想の進化を1つのドキュメントとして美しく整理しました。</p>
+<p><code>OPModel/documents/</code> 直下に <strong><code>2026.0921.02_OPModel_Architecture.md</code></strong> （またはお好みのファイル名）として保存してご活用ください。</p>
+<p>---</p>
+<pre><code>---
+title: OPModelの設計思想とコンポーネント指向アーキテクチャ
+date: 2026.0921.03
+category: Architecture
+---
+<h1>OPModel（Oriented Philosophia Model）設計仕様書</h1>
+<p>本ドキュメントは、OPModel における「2次元の型・役割（プロセッサ）」と「3次元の実体（データ・フィルム）」の完全分離、およびパイプライン投影（ビルド）構造の設計と実装内容をまとめたものです。</p>
+<p>---</p>
+<h2>1. コア概念・哲学</h2>
+<h3>① 2次元世界（型・役割・プロセッサ）</h3>
+<ul>
+<li><strong>特徴</strong>: ディレクトリ名の頭文字を<strong>大文字</strong>で定義。</li>
+<li><strong>性質</strong>: クラス・設計図・変換ロジックであり、空間や容量を持たない純粋な「役割・ベクトル」。</li>
+<li><strong>構成要素</strong>:</li>
+<li><code>Structure/</code>: 物理構造のスキャン & セマンティックな HTML 骨格 (<code><article></code>) 化</li>
+<li><code>Parser/</code>: Front Matter (YAML) / 本文 (Markdown) の安全な解析 & メディア同期</li>
+<li><code>Template/</code>: HTML 全体フレームワークへの画面合成 & 投影書き出し</li>
+<li><code>OPModel/</code>: パイプラインを繋ぐ指揮者 (<code>build.py</code>)</li>
+</ul>
+<h3>② 3次元世界（実体・フィルム / Components）</h3>
+<ul>
+<li><strong>特徴</strong>: ディレクトリ名を<strong>小文字</strong>で定義。</li>
+<li><strong>性質</strong>: 実際にファイルとして容量を占有する具体物（インスタンス/データ）。</li>
+<li><strong>構成要素</strong>:</li>
+<li><code>documents/</code>: 記述されたドキュメント実体 (<code>.md</code>)</li>
+<li><code>images/</code>: 画像アセット (<code>.png</code>, <code>.jpg</code> など)</li>
+<li><code>audios/</code>: 音声アセット (<code>.mp3</code> など)</li>
+<li><code>videos/</code>: 動画アセット (<code>.mp4</code> など)</li>
+<li><code>dist/</code>: 最終的にスクリーンへ投影された生成物 (<code>.html</code> / アセット群)</li>
+</ul>
+<h3>③ 空点 <code>.</code> と 媒介 (Context)</h3>
+<ul>
+<li>フォルダ名（<code>OPModel</code> 等）自体は相対的な原点・空点（<code>.</code>）に過ぎません。</li>
+<li><code>relation.yaml</code> は、その空点（<code>.</code>）がどの 2次元 Bean を使って 3次元の実体素材をどう結びつけるかを定義する<strong>局所的な状態記述子 (Context)</strong> です。</li>
+</ul>
+<p>---</p>
+<h2>2. 全体ディレクトリ構造</h2>
+<p></code></pre>text<br>. (空点 / 原点)<br>│<br>├── [2次元世界：型・役割・プロセッサ] (頭文字大文字 / Bean)<br>│   ├── Structure/          # 構造スキャン & HTML骨格化<br>│   │   ├── __init__.py<br>│   │   └── structure_handler.py<br>│   ├── Parser/             # Markdown/Front Matter 解析 & メディア同期<br>│   │   ├── __init__.py<br>│   │   ├── markdown_parser.py<br>│   │   └── media_parser.py<br>│   ├── Template/           # レスポンシブ画面合成 & HTML出力<br>│   │   ├── __init__.py<br>│   │   └── template_handler.py<br>│   └── OPModel/            # パイプラインを統括する指揮者<br>│       ├── build.py<br>│       └── relation.yaml   # 状態定義媒介 (Context)<br>│<br>└── [3次元世界：実体・フィルム] (小文字 components)<br>    ├── documents/          # 記事実体 (.md)<br>    ├── images/             # 画像実体<br>    ├── audios/             # 音声実体<br>    ├── videos/             # 動画実体<br>    └── dist/               # 投影スクリーン (HTML/Assets)</p>
+<pre><code>
+---
+<h2>3. 投影（Build）パイプライン処理フロー</h2>
+<p><code>build.py</code> は特定のロジックを持たず、データを各 2次元 Bean へ順番に受け渡す「データフローの媒介者（オーケストレーター）」として動作します。</p>
+<p></code></pre>text<br>[ 3次元の実体 (documents / assets) ]<br>                │<br>                ▼<br>1. Structure/ : 物理フォルダ構造のスキャン ──> relation.yaml の状態同期<br>                │<br>                ▼<br>2. Parser/    : Front Matter (YAML) と本文 (Markdown) の安全な分離抽出<br>                │<br>                ▼<br>3. Structure/ : Markdown本文を HTML化し、<article> 骨格構造を構築<br>                │<br>                ▼<br>4. Parser/    : 各メディア素材 (images, audios, videos) を dist/ へ転送<br>                │<br>                ▼<br>5. Template/  : <article> 骨格群を index.html フレームに合成し、dist/index.html へ投影</p>
+<pre><code>
+---
+<h2>4. コード実装アーカイブ</h2>
+<h3>① <code>Structure/structure_handler.py</code></h3>
+<p></code></pre>python<br>import re<br>from pathlib import Path</p>
+<p>class StructureHandler:<br>    """カレントの空点 '.' における構造解析および HTML 骨格変換を担当する2次元 Bean"""</p>
+<p>def scan_context(self, base_dir="."):<br>        base_path = Path(base_dir)<br>        ignore_dirs = {<br>            ".git", ".vscode", "__pycache__", "dist",<br>            "Parser", "Design", "Structure", "Template", "OPModel"<br>        }<br>        <br>        detected_dirs = [<br>            d.name for d in base_path.iterdir() <br>            if d.is_dir() and d.name not in ignore_dirs<br>        ]</p>
+<p>target_map = {<br>            "documents": ("content_dir", "./documents"),<br>            "assets": ("assets_dir", "./assets"),<br>            "images": ("images_dir", "./images"),<br>            "audios": ("audios_dir", "./audios"),<br>            "videos": ("videos_dir", "./videos")<br>        }</p>
+<p>components = {}<br>        for dir_name, (config_key, path_val) in target_map.items():<br>            if dir_name in detected_dirs:<br>                components[config_key] = path_val</p>
+<p>components["output_dir"] = "./dist"<br>        return components</p>
+<p>def markdown_to_html(self, md_text):<br>        html = md_text<br>        html = re.sub(r'<pre><code>        html = re.sub(r'^#### (.*?)$', r'<h4>\1</h4>', html, flags=re.MULTILINE)<br>        html = re.sub(r'^### (.*?)$', r'<h3>\1</h3>', html, flags=re.MULTILINE)<br>        html = re.sub(r'^## (.*?)$', r'<h2>\1</h2>', html, flags=re.MULTILINE)<br>        html = re.sub(r'^# (.*?)$', r'<h1>\1</h1>', html, flags=re.MULTILINE)<br>        html = re.sub(r'\<em>\</em>(.<em>?)\</em>\*', r'<strong>\1</strong>', html)<br>        html = re.sub(r'\<em>(.</em>?)\*', r'<em>\1</em>', html)<br>        html = re.sub(r'<code>(.*?)</code>', r'<code>\1</code>', html)</p>
+<p>lines = html.split('\n')<br>        in_list = False<br>        new_lines = []<br>        for line in lines:<br>            if re.match(r'^\s<em>[\-\</em>]\s+(.*)$', line):<br>                item = re.sub(r'^\s<em>[\-\</em>]\s+(.*)$', r'<li>\1</li>', line)<br>                if not in_list:<br>                    new_lines.append('<ul>')<br>                    in_list = True<br>                new_lines.append(item)<br>            else:<br>                if in_list:<br>                    new_lines.append('</ul>')<br>                    in_list = False<br>                new_lines.append(line)<br>        if in_list:<br>            new_lines.append('</ul>')<br>        html = '\n'.join(new_lines)</p>
+<p>paragraphs = html.split('\n\n')<br>        processed_p = []<br>        for p in paragraphs:<br>            p_strip = p.strip()<br>            if not p_strip:<br>                continue<br>            if re.match(r'^<(h[1-6]|ul|ol|li|pre|blockquote|article|section)', p_strip):<br>                processed_p.append(p_strip)<br>            else:<br>                processed_p.append(f'<p>{p_strip.replace("\n", "<br>")}</p>')</p>
+<p>return '\n'.join(processed_p)</p>
+<p>def build_document_structure(self, metadata, body_text):<br>        raw_html_body = self.markdown_to_html(body_text)<br>        title = metadata.get("title", "Untitled")<br>        date = metadata.get("date", "")<br>        category = metadata.get("category", "")</p>
+<p>structured_html = f"""<article class="op-document"><br>  <header class="document-header"><br>    <h1 class="document-title">{title}</h1><br>    <div class="document-meta"><br>      {f'<span class="document-date">{date}</span>' if date else ''}<br>      {f'<span class="document-category">{category}</span>' if category else ''}<br>    </div><br>  </header><br>  <section class="document-body"><br>{raw_html_body}<br>  </section><br></article>"""</p>
+<p>return {<br>            "title": title,<br>            "date": date,<br>            "category": category,<br>            "structured_html": structured_html<br>        }</p>
+<p></code></pre></p>
+<h3>② <code>Parser/markdown_parser.py</code></h3>
+<pre><code>import re
+import yaml
+from pathlib import Path
+<p>class MarkdownHandler:<br>    """Markdown ファイルの Front Matter (YAML) と本文を分離・抽出する2次元ロジック"""</p>
+<p>def process_file(self, file_path):<br>        path = Path(file_path)<br>        if not path.exists():<br>            return {}, ""</p>
+<p>with open(path, "r", encoding="utf-8") as f:<br>            content = f.read()</p>
+<p>match = re.match(r"^---\s<em>\n(.</em>?)\n---\s<em>\n(.</em>)$", content, re.DOTALL)<br>        if match:<br>            yaml_text = match.group(1)<br>            body = match.group(2)<br>            try:<br>                metadata = yaml.safe_load(yaml_text)<br>                if not isinstance(metadata, dict):<br>                    metadata = {}<br>            except Exception:<br>                metadata = {}<br>            return metadata, body<br>        else:<br>            return {}, content</p>
+<p></code></pre></p>
+<h3>③ <code>Parser/media_parser.py</code></h3>
+<pre><code>import shutil
+from pathlib import Path
+<p>class MediaHandler:<br>    """3次元のメディア素材（画像・音声・動画）をScreenへ同期転送する2次元ロジック"""</p>
+<p>def sync_directory(self, src_dir, dst_dir):<br>        src_path = Path(src_dir)<br>        dst_path = Path(dst_dir)</p>
+<p>if not src_path.exists():<br>            return</p>
+<p>shutil.copytree(src_path, dst_path, dirs_exist_ok=True)<br>        print(f"[*] アセット同期完了: {src_path.name} -> {dst_path}")</p>
+<p></code></pre></p>
+<h3>④ <code>Template/template_handler.py</code></h3>
+<pre><code>from pathlib import Path
+<p>class TemplateHandler:<br>    """Structure/ から受け取った骨格データを合成し、最終的な HTML (Screen) を生成する2次元 Bean"""</p>
+<p>def render_index(self, structured_documents, site_name="Oriented Philosophia"):<br>        articles_html = "\n".join([doc["structured_html"] for doc in structured_documents])<br>        <br>        if not articles_html:<br>            articles_html = '<p class="no-content">コンテンツがまだ存在しません。</p>'</p>
+<p>full_html = f"""<!DOCTYPE html><br><html lang="ja"><br><head><br>    <meta charset="UTF-8"><br>    <meta name="viewport" content="width=device-width, initial-scale=1.0"><br>    <title>{site_name}</title><br>    <style><br>        :root {{<br>            --bg-color: #f8f9fa;<br>            --text-color: #212529;<br>            --card-bg: #ffffff;<br>            --border-color: #e9ecef;<br>        }}<br>        body {{<br>            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;<br>            background-color: var(--bg-color);<br>            color: var(--text-color);<br>            line-height: 1.7;<br>            margin: 0;<br>            padding: 0;<br>        }}<br>        header.site-header {{<br>            background: #fff;<br>            border-bottom: 1px solid var(--border-color);<br>            padding: 2rem 1rem;<br>            text-align: center;<br>        }}<br>        header.site-header h1 {{<br>            margin: 0;<br>            font-size: 1.8rem;<br>        }}<br>        main.container {{<br>            max-width: 800px;<br>            margin: 2rem auto;<br>            padding: 0 1rem;<br>        }}<br>        article.op-document {{<br>            background: var(--card-bg);<br>            border: 1px solid var(--border-color);<br>            border-radius: 8px;<br>            padding: 2rem;<br>            margin-bottom: 2rem;<br>            box-shadow: 0 2px 4px rgba(0,0,0,0.02);<br>        }}<br>        .document-header {{<br>            border-bottom: 1px solid var(--border-color);<br>            padding-bottom: 1rem;<br>            margin-bottom: 1.5rem;<br>        }}<br>        .document-title {{<br>            margin: 0 0 0.5rem 0;<br>            font-size: 1.5rem;<br>        }}<br>        .document-meta {{<br>            font-size: 0.85rem;<br>            color: #6c757d;<br>        }}<br>        footer.site-footer {{<br>            text-align: center;<br>            padding: 2rem 1rem;<br>            font-size: 0.85rem;<br>            color: #6c757d;<br>            border-top: 1px solid var(--border-color);<br>            margin-top: 3rem;<br>        }}<br>    </style><br></head><br><body><br>    <header class="site-header"><br>        <h1>{site_name}</h1><br>    </header><br>    <br>    <main class="container"><br>{articles_html}<br>    </main></p>
+<p><footer class="site-footer"><br>        <p>&copy; Oriented Philosophia Model - Projected by OPModel</p><br>    </footer><br></body><br></html>"""<br>        return full_html</p>
+<p>def write_output(self, html_content, output_dir, file_name="index.html"):<br>        out_path = Path(output_dir) / file_name<br>        with open(out_path, "w", encoding="utf-8") as f:<br>            f.write(html_content)<br>        print(f"[*] HTML 投影完了: {out_path}")</p>
+<p></code></pre></p>
+<h3>⑤ <code>OPModel/build.py</code></h3>
+<pre><code>import sys
+from pathlib import Path
+<p>CURRENT_DIR = Path(__file__).resolve().parent<br>PROJECT_ROOT = CURRENT_DIR.parent</p>
+<p>if str(PROJECT_ROOT) not in sys.path:<br>    sys.path.insert(0, str(PROJECT_ROOT))</p>
+<p>try:<br>    import yaml<br>except ImportError:<br>    print("エラー: PyYAML がインストールされていません。")<br>    sys.exit(1)</p>
+<p>from Structure.structure_handler import StructureHandler<br>from Parser.markdown_parser import MarkdownHandler<br>from Parser.media_parser import MediaHandler<br>from Template.template_handler import TemplateHandler</p>
+<p>class OrientedPhilosophiaProjector:<br>    def __init__(self, relation_file="relation.yaml"):<br>        self.relation_file = CURRENT_DIR / relation_file<br>        self.config = {}<br>        <br>        self.structure_handler = StructureHandler()<br>        self.md_handler = MarkdownHandler()<br>        self.media_handler = MediaHandler()<br>        self.template_handler = TemplateHandler()</p>
+<p>def sync_context(self):<br>        detected_components = self.structure_handler.scan_context(CURRENT_DIR)</p>
+<p>if self.relation_file.exists():<br>            with open(self.relation_file, "r", encoding="utf-8") as f:<br>                self.config = yaml.safe_load(f) or {}<br>        else:<br>            self.config = {<br>                "name": "My-Site-Instance",<br>                "version": "1.0.0",<br>                "model": "OrientedPhilosophiaModel",<br>                "extends": {<br>                    "structure": "../Structure",<br>                    "design": "../Design",<br>                    "template": "../Template",<br>                    "parser": "../Parser"<br>                },<br>                "projector": {<br>                    "entry_point": "index.html",<br>                    "clean_output": True<br>                }<br>            }</p>
+<p>current_components = self.config.get("components", {})<br>        updated = False</p>
+<p>for key, val in detected_components.items():<br>            if current_components.get(key) != val:<br>                current_components[key] = val<br>                updated = True</p>
+<p>self.config["components"] = current_components</p>
+<p>if updated or not self.relation_file.exists():<br>            print(f"[*] Structure/ の解析に基づき {self.relation_file.name} を更新します...")<br>            with open(self.relation_file, "w", encoding="utf-8") as f:<br>                yaml.dump(self.config, f, allow_unicode=True, sort_keys=False)<br>            print(f"[✔] {self.relation_file.name} を自動同期・保存しました。")<br>        else:<br>            print(f"[*] {self.relation_file.name} の構成情報は最新状態です。")</p>
+<p>def project(self):<br>        self.sync_context()<br>        <br>        components = self.config.get("components", {})<br>        content_dir = CURRENT_DIR / Path(components.get("content_dir", "./documents"))<br>        output_dir = CURRENT_DIR / Path(components.get("output_dir", "./dist"))<br>        output_dir.mkdir(parents=True, exist_ok=True)<br>        <br>        structured_documents = []<br>        if content_dir.exists():<br>            md_files = list(content_dir.glob("*.md"))<br>            print(f"[*] 対象ドキュメント数: {len(md_files)} 件")<br>            <br>            for md_file in md_files:<br>                metadata, body = self.md_handler.process_file(md_file)<br>                doc_structure = self.structure_handler.build_document_structure(metadata, body)<br>                structured_documents.append(doc_structure)<br>                print(f"    - Structured: [{doc_structure['date']}] {doc_structure['title']}")</p>
+<p>media_keys = ["images_dir", "audios_dir", "videos_dir", "assets_dir"]<br>        for key in media_keys:<br>            if key in components:<br>                src = CURRENT_DIR / Path(components[key])<br>                self.media_handler.sync_directory(src, output_dir / src.name)</p>
+<p>site_name = self.config.get("name", "Oriented Philosophia")<br>        final_html = self.template_handler.render_index(structured_documents, site_name=site_name)<br>        self.template_handler.write_output(final_html, output_dir)<br>            <br>        print("[✔] 投影パイプライン（Structure -> Parser -> Structure -> Template）が正常に完了しました。")</p>
+<p>if __name__ == "__main__":<br>    projector = OrientedPhilosophiaProjector()<br>    projector.project()</p>
+<p></code></pre></p>
+<pre><code>
+</code></pre>
+  </section>
+</article>
+<article class="op-document">
+  <header class="document-header">
+    <h1 class="document-title">OPModelの幕開け</h1>
+    <div class="document-meta">
+      <span class="document-date">2026.0921.01</span>
+      <span class="document-category">OrientedPhilosophiaModel</span>
+    </div>
+  </header>
+  <section class="document-body">
+<h1>OPModel（OrientedPhilosophiaModel）の概念策定と設計指針</h1>
+<h2>1. 概要・背景</h2>
+これまでに構築してきた複数の静的サイト群（「飲茶坊さとし」のOrientedPhilosophia概念に基づくシステム）の設計思想を抽出し、より柔軟で再利用性の高いメタモデル<strong>「OrientedPhilosophiaModel（OPModel）」</strong>として構造化・再定義する。
+<p>---</p>
+<h2>2. OPModel のメタファーと構成要素（映写機モデル）</h2>
+<p>OPModelでは、各システム要素を映画の「上映システム」になぞらえて定義・カプセル化する。</p>
+<p>| 象徴 | コンポーネント | 役割と内容 |<br>| :--- | :--- | :--- |<br>| <strong>Film</strong> | <code>Template</code> / <code>Design</code> / <code>Structure</code> | コンテンツ（Markdown）、デザイン（CSS）、スケルトン構造（HTML）。 |<br>| <strong>Projector</strong> | <code>build.py</code> | FilmおよびRelation定義を読み込み、結合・変換を行うコアエンジン。 |<br>| <strong>Screen</strong> | <code>index.html</code> / 配信サイト | 最終的に生成され、ユーザーに表示される静的成果物。 |</p>
+<p>---</p>
+<h2>3. カプセル化（Beans）と関係性定義（Relation）</h2>
+<p>各リポジトリを <strong>Bean</strong>（独立した機能・機能群）として独立・カプセル化させ、リポジトリ間の継承および依存関係を <code>relation.yaml</code> で定義する。</p>
+<h3><code>relation.yaml</code> 標準フォーマット案</h3>
+<code></code>`yaml
+<h1>OrientedPhilosophia Relation Definition</h1>
+name: My-Site-Instance
+version: 1.0.0
+model: OrientedPhilosophiaModel
+<h1>継承元・依存リポジトリの定義 (Beans)</h1>
+extends:
+  structure: "[https://github.com/ryubostyle/Structure-Base.git](https://github.com/ryubostyle/Structure-Base.git)"
+  design: "[https://github.com/ryubostyle/Design-Theme.git](https://github.com/ryubostyle/Design-Theme.git)"
+  template: "[https://github.com/ryubostyle/Template.git](https://github.com/ryubostyle/Template.git)"
+<h1>本リポジトリ固有のオーバーライド設定</h1>
+components:
+  content_dir: "./documents"
+  assets_dir: "./assets"
+  output_dir: "./dist"
+<h1>Projector（build.py）の設定</h1>
+projector:
+  engine: "build.py"
+  entry_point: "index.html"
+  cache_beans: true
+  </section>
+</article>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; Oriented Philosophia Model - Projected by OPModel</p>
+    </footer>
+</body>
+</html>
